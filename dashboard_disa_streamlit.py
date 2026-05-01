@@ -12,8 +12,10 @@ import paho.mqtt.client as mqtt
 # ═══════════════════════════════════════════
 # CONFIGURATION
 # ═══════════════════════════════════════════
-MQTT_BROKER   = "broker.hivemq.com"
-MQTT_PORT     = 1883
+MQTT_BROKER   = "c57db5b59f8a4cad9713c5ba47edc1a3.s1.eu.hivemq.cloud"
+MQTT_PORT     = 8883
+MQTT_USERNAME = "Cyrius"
+MQTT_PASSWORD = "@KOUDOSS18Mars"
 MQTT_TOPIC    = "disa/supervision/data"
 SERIAL_BAUD   = 115200
 MAX_POINTS    = 360
@@ -157,6 +159,8 @@ def start_mqtt():
         try: process_data(json.loads(msg.payload.decode()))
         except: pass
     client = mqtt.Client()
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+    client.tls_set()
     client.on_connect = on_connect
     client.on_message = on_message
     try:
